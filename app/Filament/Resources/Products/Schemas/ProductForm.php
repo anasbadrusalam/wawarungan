@@ -18,8 +18,9 @@ class ProductForm
                     ->required(),
                 TextInput::make('sku')
                     ->label('SKU'),
-                TextInput::make('slug')
-                    ->required(),
+                // TextInput::make('slug')
+                //     ->visibleOn('edit')
+                //     ->unique(ignoreRecord: true),
                 SpatieTagsInput::make('tags')
                     ->type('product_tags'),
                 Textarea::make('description')

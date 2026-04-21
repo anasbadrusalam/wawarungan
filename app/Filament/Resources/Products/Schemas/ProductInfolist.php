@@ -17,7 +17,7 @@ class ProductInfolist
                 TextEntry::make('sku')
                     ->label('SKU')
                     ->placeholder('-'),
-                TextEntry::make('slug'),
+                // TextEntry::make('slug'),
                 SpatieTagsEntry::make('tags')
                     ->type('product_tags'),
                 TextEntry::make('description')
