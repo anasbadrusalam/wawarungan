@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Enums\Size;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -19,12 +20,12 @@ class ProductsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-
-                    ->searchable(),
+                    ->searchable(['name', 'description', 'sku', 'internal_reference', 'barcode']),
                 // TextColumn::make('sku')
                 //     ->label('SKU')
                 //     ->searchable(),
                 SpatieTagsColumn::make('tags')
+                    ->size('large')
                     ->type('product_tags')
                     ->wrap()
                     ->searchable(query: function (Builder $query, string $search): Builder {
@@ -33,26 +34,31 @@ class ProductsTable
                                 ->where('name', 'like', "%{$search}%");
                         });
                     }),
-                // TextColumn::make('internal_reference')
-                //     ->searchable(),
-                // TextColumn::make('barcode')
-                //     ->searchable(),
                 TextColumn::make('cost')
+                    ->badge()
+                    ->size('large')
+                    ->color('danger')
                     ->money(locale: config('money.locale'), currency: config('money.currency'), decimalPlaces: config('money.decimal_places'),)
                     ->sortable(),
                 TextColumn::make('price')
+                    ->badge()
+                    ->size('large')
+                    ->color('success')
                     ->money(locale: config('money.locale'), currency: config('money.currency'), decimalPlaces: config('money.decimal_places'),)
                     ->sortable(),
                 IconColumn::make('manage_stock')
                     ->boolean(),
                 TextColumn::make('stock')
+                    ->badge()
+                    ->size('large')
+                    ->color('info')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('category_id')
-                    ->numeric()
+                TextColumn::make('category.name')
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
-                TextColumn::make('brand_id')
-                    ->numeric()
+                TextColumn::make('brand.name')
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -74,6 +80,9 @@ class ProductsTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->persistFiltersInSession()
+            ->persistSortInSession()
+            ->defaultSort('created_at', 'desc');
     }
 }
