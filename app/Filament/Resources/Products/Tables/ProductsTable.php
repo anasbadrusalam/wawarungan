@@ -38,10 +38,10 @@ class ProductsTable
                 // TextColumn::make('barcode')
                 //     ->searchable(),
                 TextColumn::make('cost')
-                    ->money(currency: config('money.currency'), decimalPlaces: config('money.decimal_places'),)
+                    ->money(locale: config('money.locale'), currency: config('money.currency'), decimalPlaces: config('money.decimal_places'),)
                     ->sortable(),
                 TextColumn::make('price')
-                    ->money(currency: config('money.currency'), decimalPlaces: config('money.decimal_places'),)
+                    ->money(locale: config('money.locale'), currency: config('money.currency'), decimalPlaces: config('money.decimal_places'),)
                     ->sortable(),
                 IconColumn::make('manage_stock')
                     ->boolean(),
