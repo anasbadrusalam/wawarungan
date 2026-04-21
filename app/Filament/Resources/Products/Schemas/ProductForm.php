@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -19,6 +20,8 @@ class ProductForm
                     ->label('SKU'),
                 TextInput::make('slug')
                     ->required(),
+                SpatieTagsInput::make('tags')
+                    ->type('product_tags'),
                 Textarea::make('description')
                     ->columnSpanFull(),
                 TextInput::make('internal_reference')

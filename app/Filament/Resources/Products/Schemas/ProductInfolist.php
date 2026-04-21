@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\SpatieTagsEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -17,6 +18,8 @@ class ProductInfolist
                     ->label('SKU')
                     ->placeholder('-'),
                 TextEntry::make('slug'),
+                SpatieTagsEntry::make('tags')
+                    ->type('product_tags'),
                 TextEntry::make('description')
                     ->placeholder('-')
                     ->columnSpanFull(),
