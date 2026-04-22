@@ -12,6 +12,7 @@ class LocationForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->unique(ignoreRecord: true)
                     ->required(),
             ]);
     }

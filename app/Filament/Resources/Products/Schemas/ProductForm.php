@@ -2,7 +2,8 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
-use Filament\Forms\Components\SpatieTagsInput;
+use App\Enums\ProductType;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -14,15 +15,16 @@ class ProductForm
     {
         return $schema
             ->components([
+                Select::make('type')
+                    ->options(ProductType::class)
+                    ->default('goods')
+                    ->required(),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('sku')
                     ->label('SKU'),
-                // TextInput::make('slug')
-                //     ->visibleOn('edit')
-                //     ->unique(ignoreRecord: true),
-                SpatieTagsInput::make('tags')
-                    ->type('product_tags'),
+                TextInput::make('slug')
+                    ->required(),
                 Textarea::make('description')
                     ->columnSpanFull(),
                 TextInput::make('internal_reference')
@@ -40,14 +42,10 @@ class ProductForm
                     ->prefix('$'),
                 Toggle::make('manage_stock')
                     ->required(),
-                TextInput::make('stock')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-                TextInput::make('category_id')
-                    ->numeric(),
-                TextInput::make('brand_id')
-                    ->numeric(),
+                Select::make('category_id')
+                    ->relationship('category', 'name'),
+                Select::make('brand_id')
+                    ->relationship('brand', 'name'),
             ]);
     }
 }

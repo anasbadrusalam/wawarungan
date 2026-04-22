@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\SpatieTagsEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -13,13 +12,13 @@ class ProductInfolist
     {
         return $schema
             ->components([
+                TextEntry::make('type')
+                    ->badge(),
                 TextEntry::make('name'),
                 TextEntry::make('sku')
                     ->label('SKU')
                     ->placeholder('-'),
-                // TextEntry::make('slug'),
-                SpatieTagsEntry::make('tags')
-                    ->type('product_tags'),
+                TextEntry::make('slug'),
                 TextEntry::make('description')
                     ->placeholder('-')
                     ->columnSpanFull(),
@@ -32,13 +31,11 @@ class ProductInfolist
                     ->money(),
                 IconEntry::make('manage_stock')
                     ->boolean(),
-                TextEntry::make('stock')
-                    ->numeric(),
-                TextEntry::make('category_id')
-                    ->numeric()
+                TextEntry::make('category.name')
+                    ->label('Category')
                     ->placeholder('-'),
-                TextEntry::make('brand_id')
-                    ->numeric()
+                TextEntry::make('brand.name')
+                    ->label('Brand')
                     ->placeholder('-'),
                 TextEntry::make('created_at')
                     ->dateTime()
