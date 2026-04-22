@@ -16,6 +16,7 @@
         "laravel/tinker": "^3.0",
         "livewire/flux": "^2.13.1",
         "livewire/livewire": "^4.1",
+        "mbezhanov/faker-provider-collection": "^2.0",
         "spatie/laravel-permission": "^7.3",
         "spatie/laravel-sluggable": "^3.8",
         "spatie/laravel-tags": "^4.11"

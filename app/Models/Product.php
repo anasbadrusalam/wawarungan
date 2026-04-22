@@ -6,6 +6,7 @@ use App\Enums\ProductType;
 use App\Observers\ProductObserver;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,7 +18,7 @@ use Spatie\Tags\HasTags;
 #[ObservedBy(ProductObserver::class)]
 class Product extends Model
 {
-    use HasTags, HasSlug;
+    use HasTags, HasSlug, HasFactory;
 
     public function getSlugOptions(): SlugOptions
     {
