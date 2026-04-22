@@ -27,7 +27,7 @@ class ProductForm
                     ->required(),
                 Textarea::make('description')
                     ->columnSpanFull(),
-                TextInput::make('internal_reference')
+                TextInput::make('code')
                     ->required(),
                 TextInput::make('barcode'),
                 TextInput::make('cost')

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
 
-            $table->string('internal_reference')->unique(); 
+            $table->string('code')->unique();
             $table->string('barcode')->nullable()->unique();
 
             $table->decimal('cost', 15, 2)->default(0);

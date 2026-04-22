@@ -26,7 +26,7 @@ class ProductsTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                TextColumn::make('internal_reference')
+                TextColumn::make('code')
                     ->searchable(),
                 TextColumn::make('barcode')
                     ->searchable(),

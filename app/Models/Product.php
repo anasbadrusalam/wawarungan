@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Enums\ProductType;
+use App\Observers\ProductObserver;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Sluggable\HasSlug;
@@ -11,6 +13,7 @@ use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
 
 #[Guarded(['id'])]
+#[ObservedBy(ProductObserver::class)]
 class Product extends Model
 {
     use HasTags, HasSlug;

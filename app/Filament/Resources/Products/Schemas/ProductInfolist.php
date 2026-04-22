@@ -22,7 +22,7 @@ class ProductInfolist
                 TextEntry::make('description')
                     ->placeholder('-')
                     ->columnSpanFull(),
-                TextEntry::make('internal_reference'),
+                TextEntry::make('code'),
                 TextEntry::make('barcode')
                     ->placeholder('-'),
                 TextEntry::make('cost')
