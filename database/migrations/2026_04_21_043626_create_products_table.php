@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('barcode')->nullable()->unique();
 
-            $table->decimal('cost', 15, 2)->default(0);
-            $table->decimal('price', 15, 2)->default(0);
+            $table->decimal('cost', 10, 2)->default(0);
+            $table->decimal('price', 10, 2)->default(0);
             
             $table->boolean('manage_stock')->default(false);
             
