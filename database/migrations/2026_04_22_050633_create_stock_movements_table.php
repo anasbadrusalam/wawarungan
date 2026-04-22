@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StockMovementType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +12,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('location_id')->constrained()->cascadeOnDelete();
-            $table->integer('quantity')->default(0);
-            $table->timestamps();
 
-            $table->unique(['product_id', 'location_id']);
+            $table->enum('type', StockMovementType::cases())->default(StockMovementType::In->value);
+            $table->integer('quantity');
+
+            $table->string('reference')->nullable();
+            $table->text('note')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stocks');
+        Schema::dropIfExists('stock_movements');
     }
 };

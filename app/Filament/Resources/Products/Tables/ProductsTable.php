@@ -18,11 +18,8 @@ class ProductsTable
     {
         return $table
             ->columns([
-                // TextColumn::make('type')
-                //     ->badge()
-                //     ->searchable(),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable(['name', 'description']),
                 SpatieTagsColumn::make('tags')
                     ->wrap()
                     ->type('product_tags')
