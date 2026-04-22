@@ -10,6 +10,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductsTable
 {
@@ -23,7 +24,13 @@ class ProductsTable
                 TextColumn::make('name')
                     ->searchable(),
                 SpatieTagsColumn::make('tags')
-                    ->type('product_tags'),
+                    ->wrap()
+                    ->type('product_tags')
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        return $query->whereHas('tags', function (Builder $q) use ($search) {
+                            $q->where('type', 'product_tags')->where('name', 'like', "%{$search}%");
+                        });
+                    }),
                 TextColumn::make('sku')
                     ->label('SKU')
                     ->toggleable(isToggledHiddenByDefault: true)

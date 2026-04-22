@@ -29,7 +29,6 @@ class ProductForm
                 TextInput::make('sku')
                     ->label('SKU'),
                 TextInput::make('barcode'),
-
                 Select::make('category_id')
                     ->relationship('category', 'name'),
                 Select::make('brand_id')
@@ -43,7 +42,10 @@ class ProductForm
                     ->required()
                     ->numeric()
                     ->default(0)
-                    ->prefix('$'),               
+                    ->prefix('$'),    
+                SpatieTagsInput::make('tags')
+                    ->type('product_tags')
+                    ->columnSpanFull(),           
                 Textarea::make('description')
                     ->columnSpanFull(),
             ]);
