@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Products\Schemas;
 
 use App\Enums\ProductType;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -15,21 +16,24 @@ class ProductForm
     {
         return $schema
             ->components([
-                Select::make('type')
-                    ->options(ProductType::class)
-                    ->default('goods')
+                Toggle::make('manage_stock')
+                    ->columnSpanFull()
+                    ->default(true)
                     ->required(),
                 TextInput::make('name')
                     ->required(),
+                Select::make('type')
+                    ->options(ProductType::class)
+                    ->default(ProductType::Goods)
+                    ->required(),
                 TextInput::make('sku')
                     ->label('SKU'),
-                TextInput::make('slug')
-                    ->required(),
-                Textarea::make('description')
-                    ->columnSpanFull(),
-                TextInput::make('code')
-                    ->required(),
                 TextInput::make('barcode'),
+
+                Select::make('category_id')
+                    ->relationship('category', 'name'),
+                Select::make('brand_id')
+                    ->relationship('brand', 'name'),
                 TextInput::make('cost')
                     ->required()
                     ->numeric()
@@ -39,13 +43,9 @@ class ProductForm
                     ->required()
                     ->numeric()
                     ->default(0)
-                    ->prefix('$'),
-                Toggle::make('manage_stock')
-                    ->required(),
-                Select::make('category_id')
-                    ->relationship('category', 'name'),
-                Select::make('brand_id')
-                    ->relationship('brand', 'name'),
+                    ->prefix('$'),               
+                Textarea::make('description')
+                    ->columnSpanFull(),
             ]);
     }
 }
