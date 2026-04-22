@@ -19,8 +19,8 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $this->faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($this->faker));
         $this->faker->locale('id_ID');
+        $this->faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($this->faker));
 
         return [
             'type' => $this->faker->randomElement(ProductType::cases())->value,
