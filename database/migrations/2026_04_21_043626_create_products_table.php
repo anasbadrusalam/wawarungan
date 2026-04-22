@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProductType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', ProductType::cases())->default(ProductType::Goods->value);
             $table->string('name');
 
             $table->string('sku')->nullable(); 
@@ -26,7 +28,6 @@ return new class extends Migration
             $table->decimal('price', 15, 2)->default(0);
             
             $table->boolean('manage_stock')->default(false);
-            $table->integer('stock')->default(0);
             
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('brand_id')->nullable()->constrained()->nullOnDelete();
