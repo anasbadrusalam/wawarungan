@@ -34,6 +34,12 @@ class ProductInfolist
                         TextEntry::make('code'),
                         TextEntry::make('barcode')
                             ->placeholder('-'),
+                        TextEntry::make('category.name')
+                            ->label('Category')
+                            ->placeholder('-'),
+                        TextEntry::make('brand.name')
+                            ->label('Brand')
+                            ->placeholder('-'),
                         TextEntry::make('cost')
                             ->badge()
                             ->size('large')
@@ -44,12 +50,6 @@ class ProductInfolist
                             ->size('large')
                             ->color('success')
                             ->money(locale: config('money.locale'), currency: config('money.currency'), decimalPlaces: config('money.decimal_places')),
-                        TextEntry::make('category.name')
-                            ->label('Category')
-                            ->placeholder('-'),
-                        TextEntry::make('brand.name')
-                            ->label('Brand')
-                            ->placeholder('-'),
                         SpatieTagsEntry::make('tags')
                             ->wrap()
                             ->type('product_tags')

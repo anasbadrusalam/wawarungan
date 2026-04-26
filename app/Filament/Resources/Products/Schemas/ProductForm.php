@@ -30,7 +30,24 @@ class ProductForm
                 TextInput::make('sku')
                     ->label('SKU'),
                 TextInput::make('barcode'),
-
+                Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->unique(ignoreRecord: true)
+                            ->required(),
+                    ]),
+                Select::make('brand_id')
+                    ->relationship('brand', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->unique(ignoreRecord: true)
+                            ->required(),
+                    ]),
                 TextInput::make('cost')
                     ->required()
                     ->numeric()
@@ -40,11 +57,7 @@ class ProductForm
                     ->required()
                     ->numeric()
                     ->default(0)
-                    ->prefix('Rp'),
-                Select::make('category_id')
-                    ->relationship('category', 'name'),
-                Select::make('brand_id')
-                    ->relationship('brand', 'name'),
+                    ->prefix('Rp'),                
                 SpatieTagsInput::make('tags')
                     ->type('product_tags')
                     ->columnSpanFull(),

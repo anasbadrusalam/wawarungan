@@ -19,6 +19,7 @@ class ProductsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->wrap()
                     ->searchable(['name', 'description']),
                 SpatieTagsColumn::make('tags')
                     ->wrap()
@@ -51,13 +52,15 @@ class ProductsTable
                     ->badge()
                     ->size('large')
                     ->color('success')
-                    ->sortable(),
+                    ->sortable(),                
                 IconColumn::make('manage_stock')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->boolean(),
                 TextColumn::make('category.name')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 TextColumn::make('brand.name')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -66,7 +69,7 @@ class ProductsTable
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
                 //
@@ -75,8 +78,12 @@ class ProductsTable
                 ViewAction::make(),
                 EditAction::make(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->toolbarActions([
                 BulkActionGroup::make([
+                    BulkActionGroup::make([
+                        // EditAction::make(),
+                    ]),
                     DeleteBulkAction::make(),
                 ]),
             ]);
