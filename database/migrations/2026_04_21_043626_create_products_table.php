@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
 
-            $table->string('code')->unique();
+            $table->string('code')->nullable()->unique();
             $table->string('barcode')->nullable()->unique();
 
-            $table->decimal('cost', 10, 2)->default(0);
-            $table->decimal('price', 10, 2)->default(0);
+            $table->decimal('cost', 18, 2)->default(0);
+            $table->decimal('price', 18, 2)->default(0);
             
             $table->boolean('manage_stock')->default(false);
             

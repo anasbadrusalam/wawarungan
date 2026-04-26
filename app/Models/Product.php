@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
@@ -18,7 +21,17 @@ use Spatie\Tags\HasTags;
 #[ObservedBy(ProductObserver::class)]
 class Product extends Model
 {
-    use HasTags, HasSlug, HasFactory;
+    use HasTags, HasSlug, HasFactory, LogsActivity;
+
+    protected static $recordEvents = ['updated'];
+
+    protected function casts(): array
+    {
+        return [
+            'manage_stock' => 'boolean',
+            'type' => ProductType::class,
+        ];
+    }
 
     public function getSlugOptions(): SlugOptions
     {
@@ -29,12 +42,12 @@ class Product extends Model
             ->doNotGenerateSlugsOnUpdate();
     }
 
-    protected function casts(): array
+    public function getActivitylogOptions(): LogOptions
     {
-        return [
-            'manage_stock' => 'boolean',
-            'type' => ProductType::class,
-        ];
+        return LogOptions::defaults()
+            ->logOnly(['name', 'cost', 'price', 'sku', 'code', 'barcode'])
+            ->logOnlyDirty()
+            ->useLogName('product');
     }
 
     public function category(): BelongsTo
@@ -50,5 +63,10 @@ class Product extends Model
     public function stocks(): HasMany
     {
         return $this->hasMany(Stock::class);
+    }
+
+    public function activities(): MorphMany
+    {
+        return $this->morphMany(config('activitylog.activity_model'), 'subject')->latest();
     }
 }

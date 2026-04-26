@@ -16,36 +16,38 @@ class ProductForm
     {
         return $schema
             ->components([
-                Toggle::make('manage_stock')
-                    ->columnSpanFull()
-                    ->default(true)
-                    ->required(),
+                // Toggle::make('manage_stock')
+                //     ->columnSpanFull()
+                //     ->default(true)
+                //     ->required(),
                 TextInput::make('name')
+                    ->columnSpanFull()
                     ->required(),
-                Select::make('type')
-                    ->options(ProductType::class)
-                    ->default(ProductType::Goods)
-                    ->required(),
+                // Select::make('type')
+                //     ->options(ProductType::class)
+                //     ->default(ProductType::Goods)
+                //     ->required(),
                 TextInput::make('sku')
                     ->label('SKU'),
                 TextInput::make('barcode'),
-                Select::make('category_id')
-                    ->relationship('category', 'name'),
-                Select::make('brand_id')
-                    ->relationship('brand', 'name'),
+
                 TextInput::make('cost')
                     ->required()
                     ->numeric()
                     ->default(0)
-                    ->prefix('$'),
+                    ->prefix('Rp'),
                 TextInput::make('price')
                     ->required()
                     ->numeric()
                     ->default(0)
-                    ->prefix('$'),    
+                    ->prefix('Rp'),
+                Select::make('category_id')
+                    ->relationship('category', 'name'),
+                Select::make('brand_id')
+                    ->relationship('brand', 'name'),
                 SpatieTagsInput::make('tags')
                     ->type('product_tags')
-                    ->columnSpanFull(),           
+                    ->columnSpanFull(),
                 Textarea::make('description')
                     ->columnSpanFull(),
             ]);
