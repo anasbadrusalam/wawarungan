@@ -41,10 +41,16 @@ class ProductsTable
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 TextColumn::make('cost')
-                    ->money()
+                    ->money(locale: config('money.locale'), currency: config('money.currency'), decimalPlaces: config('money.decimal_places'))
+                    ->badge()
+                    ->size('large')
+                    ->color('danger')
                     ->sortable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->money(locale: config('money.locale'), currency: config('money.currency'), decimalPlaces: config('money.decimal_places'))
+                    ->badge()
+                    ->size('large')
+                    ->color('success')
                     ->sortable(),
                 IconColumn::make('manage_stock')
                     ->toggleable(isToggledHiddenByDefault: true)
