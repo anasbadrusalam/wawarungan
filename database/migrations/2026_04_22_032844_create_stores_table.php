@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StoreType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,9 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('stores', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('parent_id')->nullable()->index()->constrained('stores')->nullOnDelete();
             $table->string('name')->unique();
+            $table->enum('type', StoreType::cases())->default(StoreType::MAIN->value)->index();
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('stores');
     }
 };

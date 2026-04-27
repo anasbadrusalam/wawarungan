@@ -14,7 +14,8 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('store_id')->constrained()->restrictOnDelete();
+            $table->foreignId('supplier_id')->constrained()->restrictOnDelete();
             $table->enum('status', PurchaseStatus::cases())->default(PurchaseStatus::Draft->value);
             $table->date('ordered_at')->nullable();
             $table->date('received_at')->nullable();

@@ -14,8 +14,8 @@ class Stock extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function location(): BelongsTo
+    public function store(): BelongsTo
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsTo(Store::class);
     }
 }
