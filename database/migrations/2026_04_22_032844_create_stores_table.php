@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('parent_id')->nullable()->index()->constrained('stores')->nullOnDelete();
             $table->string('name')->unique();
-            $table->enum('type', StoreType::cases())->default(StoreType::MAIN->value)->index();
+            $table->enum('type', StoreType::cases())->default(StoreType::Main->value)->index();
             $table->timestamps();
         });
     }

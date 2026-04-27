@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum StoreType: string
 {
-    case MAIN = 'main';
-    case BRANCH = 'branch';
+    case Main = 'main';
+    case Branch = 'branch';
 }
