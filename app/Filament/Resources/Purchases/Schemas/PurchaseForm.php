@@ -5,10 +5,13 @@ namespace App\Filament\Resources\Purchases\Schemas;
 use App\Enums\PurchaseStatus;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Repeater\TableColumn;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Flex;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Alignment;
 
 class PurchaseForm
 {
@@ -27,22 +30,30 @@ class PurchaseForm
                     ->label('Products')
                     ->dense()
                     ->relationship()
+                    // ->table([
+                    //     TableColumn::make('Product')
+                    //         ->alignment(Alignment::Start),
+                    //     TableColumn::make('Qty')
+                    //         ->width('120px')
+                    //         ->alignment(Alignment::Start),
+                    //     TableColumn::make('Unit Price')
+                    //         ->alignment(Alignment::Start),
+                    // ])
                     ->schema([
                         Select::make('product_id')
                             ->searchable()
                             ->preload()
                             ->relationship('product', 'name')
                             ->required(),
-                        Flex::make([
-                            TextInput::make('quantity')
-                                ->numeric()
-                                ->required(),
-                            TextInput::make('unit_price')
-                                ->columnSpanFull()
-                                ->numeric()
-                                ->required(),
-                        ]),
-
+                        TextInput::make('quantity')
+                            ->type('number')
+                            ->minValue(1)
+                            ->required(),
+                        TextInput::make('unit_price')
+                            ->type('number')
+                            ->minValue(0)
+                            ->numeric()
+                            ->required(),
                     ])
                     ->defaultItems(1)
                     ->minItems(1)
