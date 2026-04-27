@@ -13,6 +13,7 @@ class PurchaseInfolist
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->dense()
             ->columns([
                 'default' => 2,
                 'sm' => 2,
