@@ -21,39 +21,61 @@ class PurchaseForm
             ->components([
                 Select::make('supplier_id')
                     ->relationship('supplier', 'name')
-                    ->required(),
-                Select::make('status')
-                    ->disabled()
-                    ->options(PurchaseStatus::class)
-                    ->default(PurchaseStatus::Draft),
+                    ->searchable()
+                    ->preload()
+                    ->required()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->unique(ignoreRecord: true)
+                            ->required(),
+                    ]),
+                Grid::make([
+                    'default' => 2,
+                    'sm' => 2,
+                ])
+                    ->dense()
+                    ->schema([
+                        Select::make('status')
+                            ->disabled()
+                            ->options(PurchaseStatus::class)
+                            ->default(PurchaseStatus::Draft),
+                        Select::make('store_id')
+                            ->relationship('store', 'name')
+                            ->default(1)
+                    ]),
+
                 Repeater::make('items')
                     ->label('Products')
                     ->dense()
                     ->relationship()
-                    // ->table([
-                    //     TableColumn::make('Product')
-                    //         ->alignment(Alignment::Start),
-                    //     TableColumn::make('Qty')
-                    //         ->width('120px')
-                    //         ->alignment(Alignment::Start),
-                    //     TableColumn::make('Unit Price')
-                    //         ->alignment(Alignment::Start),
-                    // ])
                     ->schema([
                         Select::make('product_id')
                             ->searchable()
                             ->preload()
                             ->relationship('product', 'name')
                             ->required(),
-                        TextInput::make('quantity')
-                            ->type('number')
-                            ->minValue(1)
-                            ->required(),
-                        TextInput::make('unit_price')
-                            ->type('number')
-                            ->minValue(0)
-                            ->numeric()
-                            ->required(),
+                        Grid::make([
+                            'default' => 4,
+                            'sm' => 4,
+                        ])
+                            ->dense()
+                            ->schema([
+                                TextInput::make('quantity')
+                                    ->numeric()
+                                    ->default(1)
+                                    ->required(),
+                                TextInput::make('price')
+                                    ->columnSpan([
+                                        'default' => 3,
+                                        'sm' => 3,
+                                    ])
+                                    ->type('number')
+                                    ->minValue(0)
+                                    ->numeric()
+                                    ->required(),
+
+                            ]),
+
                     ])
                     ->defaultItems(1)
                     ->minItems(1)

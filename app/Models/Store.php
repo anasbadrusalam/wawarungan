@@ -18,6 +18,11 @@ class Store extends Model
         ];
     }
 
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     public function stocks(): HasMany
     {
         return $this->hasMany(Stock::class);
