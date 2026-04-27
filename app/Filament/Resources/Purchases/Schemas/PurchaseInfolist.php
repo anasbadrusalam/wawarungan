@@ -13,6 +13,10 @@ class PurchaseInfolist
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns([
+                'default' => 2,
+                'sm' => 2,
+            ])
             ->components([
                 TextEntry::make('supplier.name')
                     ->label('Supplier'),
