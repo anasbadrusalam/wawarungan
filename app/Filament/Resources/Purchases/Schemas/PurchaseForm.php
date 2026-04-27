@@ -35,13 +35,15 @@ class PurchaseForm
                 ])
                     ->dense()
                     ->schema([
+                        Select::make('store_id')
+                            ->required()
+                            ->relationship('store', 'name')
+                            ->default(1),
                         Select::make('status')
+                            ->required()
                             ->disabled()
                             ->options(PurchaseStatus::class)
                             ->default(PurchaseStatus::Draft),
-                        Select::make('store_id')
-                            ->relationship('store', 'name')
-                            ->default(1)
                     ]),
 
                 Repeater::make('items')
